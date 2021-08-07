@@ -27,9 +27,15 @@ export const FormClients = ({ clients, setClients, isEdit, field, setIsEdit, set
   const onSubmit = (data) => {
     setIsEdit(false)
     setField({})
-    const address = { streetAddress: data.address }
-    // delete data.streetAddress
+    const address = {
+      streetAddress: data.address,
+      city: data.city,
+      cityId: 1,
+      stateId: 1
+     }
+    delete data.city
     const newData = { ...data, address }
+    console.log("NEWDATA", newData)
     isEdit ? edit(field.id, newData) : create(newData)
   };
 
@@ -37,9 +43,6 @@ export const FormClients = ({ clients, setClients, isEdit, field, setIsEdit, set
     setField({})
     setIsEdit(false)
   }
-
-  console.log("ISEDIT", isEdit);
-  console.log("ISEDIT", isEdit);
 
   // Loaders and Errors
   if (loading) return <Loading />
@@ -73,6 +76,12 @@ export const FormClients = ({ clients, setClients, isEdit, field, setIsEdit, set
           className={classes.input}
           placeholder="Add your address" />
         {errors.address && <span className={classes.inputError}>This field is required</span>}
+
+        <input {...register("city", { required: true })}
+          defaultValue={field.city ?? ''}
+          className={classes.input}
+          placeholder="Add your city" />
+        {errors.city && <span className={classes.inputError}>This field is required</span>}
 
         <div className={classes.containerButton}>
           <Button type="submit" variant="outlined" color="primary">

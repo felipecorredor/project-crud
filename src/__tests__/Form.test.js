@@ -14,6 +14,7 @@ describe('TestAuth', () => {
     component.getByPlaceholderText('Add your lastName')
     component.getByPlaceholderText('Add your cellphone')
     component.getByPlaceholderText('Add your address')
+    component.getByPlaceholderText('Add your city')
   })
 
   test('Validate exists button', () => {
